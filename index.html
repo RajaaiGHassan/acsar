@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body>
+  <a-scene mindar-image="imageTargetSrc: ./targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-assets>
+      <!-- ALL 32 AUDIO FILES (Replace with your MP3/WAV files) -->
+      <audio id="sound0" src="audios/1.mp3" preload="auto"></audio>
+      <audio id="sound1" src="audios/2.mp3" preload="auto"></audio>
+      <audio id="sound2" src="audios/3.mp3" preload="auto"></audio>
+      <audio id="sound3" src="audios/4.mp3" preload="auto"></audio>
+      <audio id="sound4" src="audios/5.mp3" preload="auto"></audio>
+      <audio id="sound5" src="audios/6.mp3" preload="auto"></audio>
+      <audio id="sound6" src="audios/7.mp3" preload="auto"></audio>
+      <audio id="sound7" src="audios/8.mp3" preload="auto"></audio>
+      <audio id="sound8" src="audios/9.mp3" preload="auto"></audio>
+      <audio id="sound9" src="audios/10.mp3" preload="auto"></audio>
+      <audio id="sound10" src="audios/11.mp3" preload="auto"></audio>
+      <audio id="sound11" src="audios/12.mp3" preload="auto"></audio>
+      <audio id="sound12" src="audios/13.mp3" preload="auto"></audio>
+      
+      
+     
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!-- ALL 32 TARGETS (0 to 31) -->
+    <a-entity mindar-image-target="targetIndex: 0"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 1"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 2"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 3"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 4"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 5"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 6"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 7"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 8"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 9"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 10"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 11"></a-entity>
+    <a-entity mindar-image-target="targetIndex: 12"></a-entity>
+    
+    
+  </a-scene>
+
+  <script>
+    const scene = document.querySelector('a-scene');
+    
+    // Play audio when marker is found
+    scene.addEventListener('targetFound', (event) => {
+      const targetIndex = event.target.getAttribute('mindar-image-target').targetIndex;
+      const audio = document.getElementById(`sound${targetIndex}`);
+      audio.play();
+    });
+    
+    // Stop audio when marker is lost
+    scene.addEventListener('targetLost', (event) => {
+      const targetIndex = event.target.getAttribute('mindar-image-target').targetIndex;
+      const audio = document.getElementById(`sound${targetIndex}`);
+      audio.pause();
+      audio.currentTime = 0;
+    });
+  </script>
+</body>
+</html>
